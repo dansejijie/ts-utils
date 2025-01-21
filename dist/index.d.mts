@@ -7,4 +7,6 @@
  */
 declare const urlToFile: (url: string, filename: string, mimeType: string) => Promise<File>;
 
-export { urlToFile };
+declare const add: () => void;
+
+export { add, urlToFile };
