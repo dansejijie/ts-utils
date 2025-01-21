@@ -17,14 +17,12 @@ var __copyProps = (to, from, except, desc) => {
 };
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-// src/index.ts
-var index_exports = {};
-__export(index_exports, {
+// src/file/index.ts
+var file_exports = {};
+__export(file_exports, {
   urlToFile: () => urlToFile
 });
-module.exports = __toCommonJS(index_exports);
-
-// src/file/index.ts
+module.exports = __toCommonJS(file_exports);
 var urlToFile = async (url, filename, mimeType) => {
   return fetch(url).then((response) => response.blob()).then((blob) => new File([blob], filename, { type: mimeType }));
 };
