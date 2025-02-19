@@ -2,7 +2,7 @@
   <div class="form-demo">
     <h2>表单示例</h2>
     <BasicForm
-      ref="form"
+      :form="form"
       :config="formConfig"
     >
       <template #footer>
@@ -17,22 +17,24 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { BasicForm } from '../src/utils/form/BasicForm'
-import type { FormField } from '../src/utils/form/types/Field'
+import { BasicForm as BasicFormClass } from '../src/utils/form/BasicForm'
+import BasicForm from './components/form/BasicForm.vue'
 
 // 定义表单配置
 const formConfig = {
   username: {
-    type: 'input',
+    component: 'Input',
     label: '用户名',
+    placeholder: '请输入用户名',
     rules: [
       { required: true, message: '请输入用户名' }
     ]
   },
   password: {
-    type: 'input',
+    component: 'Input',
     label: '密码',
     inputType: 'password',
+    placeholder: '请输入密码',
     rules: [
       { required: true, message: '请输入密码' },
       { min: 6, message: '密码长度不能小于6位' }
@@ -41,14 +43,16 @@ const formConfig = {
 } as const
 
 // 创建表单实例
-const form = ref<InstanceType<typeof BasicForm>>( new BasicForm())
+const formInstance = new BasicFormClass()
+const form = ref(formInstance)
+
 
 // 提交方法
 const handleSubmit = async () => {
   try {
-    const valid = await form.value?.validate()
+    const valid = await form.value.validate()
     if (valid) {
-      const formData = form.value?.getFieldsValue()
+      const formData = form.value.getValues()
       console.log('表单数据:', formData)
     }
   } catch (error) {
@@ -58,7 +62,7 @@ const handleSubmit = async () => {
 
 // 重置方法
 const handleReset = () => {
-  form.value?.resetFields()
+  form.value.reset()
 }
 </script>
 

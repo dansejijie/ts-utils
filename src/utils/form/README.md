@@ -1,7 +1,5 @@
 # 当前文件夹结构
 ./form/
-├── extensions/ # 表单项扩展入口文件夹
-│   ├──Input.ts # 输入框
 ├── types/ # 表单相关定义入口文件夹
 │   ├──Form.ts # 表单接口
 │   ├──Field.ts # 表单项接口
