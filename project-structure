@@ -1,0 +1,10 @@
+ts-utils/
+├── src/
+│   ├── utils/          # 工具函数
+│   ├── components/     # 示例组件
+│   └── index.ts        # 工具库入口文件
+├── example/           # Vue3 演示项目
+├── tests/            # 测试用例
+├── package.json
+├── vite.config.ts    # Vite 配置
+└── tsconfig.json     # TypeScript 配置 
