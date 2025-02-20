@@ -8,13 +8,21 @@
 ## 组件规则
 * 示例
 ``` Sample.vue
-<script setup lang="ts">
 
-</script>
+  <script>
+  import { defineComponent } from 'vue';
+  
+  export default defineComponent({
+    setup() {},
+  });
+  </script>
 
-<template>
-  <div>
-    <h1>Hello World</h1>
-  </div>
-</template>
+  <template>
+    <span>Input</span>
+  </template>
+  
+  <style lang="less" scoped>
+
+  </style>
+  
 ```

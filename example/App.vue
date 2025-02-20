@@ -12,6 +12,7 @@
         </div>
       </template>
     </BasicForm> -->
+    <Input />
   </div>
 </template>
 
@@ -20,6 +21,7 @@ import { ref } from 'vue'
 import BasicFormClass from '../src/form/BasicForm'
 import { IFieldConfig } from '../src/form/types'
 import { onMounted } from 'vue'
+import Input from '@example/form/views/Input.vue'
 // 定义表单配置
 const formConfig: Record<string, IFieldConfig<any>> = {
   username: {
