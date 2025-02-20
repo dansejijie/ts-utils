@@ -13,5 +13,11 @@ export default defineConfig({
   },
   server: {
     open: true
+  },
+  resolve: {
+    alias: {
+      '@example': resolve(__dirname, 'example'),
+      '@': resolve(__dirname, 'src')
+    }
   }
 }) 

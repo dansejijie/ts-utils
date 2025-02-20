@@ -1,9 +1,8 @@
 # 当前文件夹结构
 ./form/
-├── types/ # 表单相关定义入口文件夹
-│   ├──Form.ts # 表单接口
-│   ├──Field.ts # 表单项接口
-│   ├──FieldConfig.ts # 表单项配置定义
+├── Form.ts # 表单接口
+├── Field.ts # 表单项接口
+├── types.ts # 相关类型定义
 ├── BasicForm.ts # 基础表单
 ├── index.ts # 文件导出入口文件
 

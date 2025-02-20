@@ -1,7 +1,7 @@
 <template>
   <div class="form-demo">
     <h2>表单示例</h2>
-    <BasicForm
+    <!-- <BasicForm
       :form="form"
       :config="formConfig"
     >
@@ -11,40 +11,44 @@
           <button @click="handleReset">重置</button>
         </div>
       </template>
-    </BasicForm>
+    </BasicForm> -->
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { BasicForm as BasicFormClass } from '../src/utils/form/BasicForm'
-import BasicForm from './components/form/BasicForm.vue'
-
+import BasicFormClass from '../src/form/BasicForm'
+import { IFieldConfig } from '../src/form/types'
+import { onMounted } from 'vue'
 // 定义表单配置
-const formConfig = {
+const formConfig: Record<string, IFieldConfig<any>> = {
   username: {
-    component: 'Input',
-    label: '用户名',
-    placeholder: '请输入用户名',
-    rules: [
-      { required: true, message: '请输入用户名' }
-    ]
+    view: 'Input',
+    controller: 'Input',
+    key: 'username',
+    name: '用户名',
   },
   password: {
-    component: 'Input',
-    label: '密码',
-    inputType: 'password',
-    placeholder: '请输入密码',
-    rules: [
-      { required: true, message: '请输入密码' },
-      { min: 6, message: '密码长度不能小于6位' }
-    ]
+    view: 'Input',
+    controller: 'Input',
+    key: 'password',
+    name: '密码',
   }
 } as const
 
 // 创建表单实例
 const formInstance = new BasicFormClass()
 const form = ref(formInstance)
+
+const  initForm = async() => {
+  formInstance.setImportDirectory('@example/form/controllers')
+  await formInstance.addField('username', formConfig['username'])
+}
+
+onMounted(async () => {
+  await initForm()
+});
+
 
 
 // 提交方法

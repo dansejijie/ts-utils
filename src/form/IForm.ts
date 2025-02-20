@@ -1,9 +1,9 @@
-import { IField } from './Field';
+import IField from './IField';
 
 /**
  * 表单接口
  */
-export interface IForm {
+export default interface IForm {
   /** 校验所有表单项 */
   validate(): Promise<boolean>;
   /** 获取表单数据 */

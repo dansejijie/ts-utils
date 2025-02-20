@@ -1,11 +1,9 @@
 ts-utils/
 ├── example/           # Vue3 演示项目
-│   ├── form/          # 基于form设计的入口文件
+│   ├── form/          # 表单相关功能的扩展
 ├── src/
-│   ├── utils/          # 工具函数
-│   ├── components/     # 示例组件
-│   └── index.ts        # 工具库入口文件
-├── example/           # Vue3 演示项目
+│   ├── form/          # 表单相关功能
+│   └── index.ts       # 入口文件
 ├── tests/            # 测试用例
 ├── package.json
 ├── vite.config.ts    # Vite 配置

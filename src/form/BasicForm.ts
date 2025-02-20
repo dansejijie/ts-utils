@@ -1,17 +1,33 @@
-import { IForm } from './types/Form';
-import { IField } from './types/Field';
+import IForm from './IForm';
+import IField from './IField';
+import { IFieldConfig } from './types';
 
-export class BasicForm implements IForm {
+export default class BasicForm implements IForm {
   private fields: Map<string, IField> = new Map();
   private changeCallbacks: Array<(values: Record<string, any>) => void> = [];
-
+  private importDirectory: string = '';
   constructor() {
     this.handleFieldChange = this.handleFieldChange.bind(this);
   }
 
-  public addField(name: string, field: IField): void {
-    this.fields.set(name, field);
-    field.onChange(this.handleFieldChange);
+  public setImportDirectory(directory: string): void {
+    this.importDirectory = directory;
+  }
+
+  public async addField(name: string, field: IField | IFieldConfig): Promise<void> {
+    if ('controller' in field) {
+      const { controller } = field as IFieldConfig;
+      const relativePath = `${this.importDirectory}/${controller}.ts`
+      console.log('relativePath', relativePath);
+      const Clz  = await import(relativePath) ;
+      console.log('Clz', Clz);
+      const instance = new Clz.default(field);
+      this.fields.set(name, instance);
+      instance.onChange(this.handleFieldChange);
+    } else {
+      this.fields.set(name, field as IField);
+      field.onChange(this.handleFieldChange);
+    }
   }
 
   public async validate(): Promise<boolean> {

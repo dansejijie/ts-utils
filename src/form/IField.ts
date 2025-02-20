@@ -1,7 +1,7 @@
 /**
  * 表单项接口
  */
-export interface IField<T = any> {
+export default interface IField<T = any> {
   /** 校验数据 */
   validate(): Promise<boolean>;
   /** 获取数据 */
