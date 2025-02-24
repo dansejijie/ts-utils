@@ -1,9 +1,8 @@
 <template>
   <div class="form-demo">
     <h2>表单示例</h2>
-    <!-- <BasicForm
-      :form="form"
-      :config="formConfig"
+    <BasicForm
+      :controller="form"
     >
       <template #footer>
         <div class="form-buttons">
@@ -11,8 +10,7 @@
           <button @click="handleReset">重置</button>
         </div>
       </template>
-    </BasicForm> -->
-    <Input />
+    </BasicForm>
   </div>
 </template>
 
@@ -21,7 +19,7 @@ import { ref } from 'vue'
 import BasicFormClass from '../src/form/BasicForm'
 import { IFieldConfig } from '../src/form/types'
 import { onMounted } from 'vue'
-import Input from '@example/form/views/Input.vue'
+import BasicForm from '@example/form/BasicForm.vue'
 // 定义表单配置
 const formConfig: Record<string, IFieldConfig<any>> = {
   username: {
@@ -29,12 +27,16 @@ const formConfig: Record<string, IFieldConfig<any>> = {
     controller: 'Input',
     key: 'username',
     name: '用户名',
+    value: '',
+    attrs: {}
   },
   password: {
     view: 'Input',
     controller: 'Input',
     key: 'password',
     name: '密码',
+    value: '',
+    attrs: {}
   }
 } as const
 
@@ -44,7 +46,7 @@ const form = ref(formInstance)
 
 const  initForm = async() => {
   formInstance.setImportDirectory('../../example/form/controllers/')
-  await formInstance.addField('username', formConfig['username'])
+  await formInstance.addField(formConfig['username'])
 }
 
 onMounted(async () => {

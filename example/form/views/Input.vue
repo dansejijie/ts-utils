@@ -1,12 +1,33 @@
 <template>
-    <span>Input</span>
+    <AntdInput :value="controller.value" @change="handleChange" />
   </template>
   
-  <script>
-  import { defineComponent } from 'vue';
-  
+  <script lang="ts">
+  import { defineComponent, PropType } from 'vue';
+  import { Input as AntdInput } from 'ant-design-vue';
+  import Input from '@example/form/controllers/Input';
+  import IField from '@/form/IField';
+
   export default defineComponent({
-    setup() {},
+    components: {
+      AntdInput
+    },
+    props: {
+      controller: {
+        type: Object as PropType<IField<string>>,
+        required: true
+      }
+    },
+    setup(props) {
+      const handleChange = (e: InputEvent) => {
+        console.log('handleChange', e);
+        props.controller.setValue(e.target.value);
+      }
+      return {
+        controller: props.controller,
+        handleChange
+      }
+    },
   });
   </script>
   

@@ -2,9 +2,10 @@ import IForm from './IForm';
 import IField from './IField';
 import { IFieldConfig } from './types';
 import { importModule } from '@/utils/references';
+import { reactive } from 'vue';
 
 export default class BasicForm implements IForm {
-  private fields: Map<string, IField> = new Map();
+  public fields: Array<IField> = reactive([]);
   private changeCallbacks: Array<(values: Record<string, any>) => void> = [];
   private importDirectory: string = '';
   constructor() {
@@ -19,7 +20,7 @@ export default class BasicForm implements IForm {
     this.importDirectory = directory;
   }
 
-  public async addField(name: string, field: IField | IFieldConfig): Promise<void> {
+  public async addField(field: IField | IFieldConfig): Promise<void> {
     if ('controller' in field) {
       const { controller } = field as IFieldConfig;
       const relativePath = `${this.importDirectory}/${controller}.ts`
@@ -27,11 +28,11 @@ export default class BasicForm implements IForm {
       const Clz  = await importModule(relativePath) ;
       console.log('Clz', Clz);
       const instance = new Clz(field);
-      this.fields.set(name, instance);
-      instance.onChange(this.handleFieldChange);
+      this.fields.push(instance);
+      instance.addListener(this.handleFieldChange);
     } else {
-      this.fields.set(name, field as IField);
-      field.onChange(this.handleFieldChange);
+      this.fields.push(field as IField);
+      field.addListener(this.handleFieldChange);
     }
   }
 
@@ -58,7 +59,7 @@ export default class BasicForm implements IForm {
   public async setValues(values: Record<string, any>): Promise<void> {
     await Promise.all(
       Object.entries(values).map(async ([name, value]) => {
-        const field = this.fields.get(name);
+        const field = this.fields.find(field => field.getConfig().key === name);
         if (field) {
           await field.setValue(value);
         }
@@ -73,7 +74,7 @@ export default class BasicForm implements IForm {
   }
 
   public getField(name: string): IField | undefined {
-    return this.fields.get(name);
+    return this.fields.find(field => field.getConfig().key === name);
   }
 
   public onChange(callback: (values: Record<string, any>) => void): void {

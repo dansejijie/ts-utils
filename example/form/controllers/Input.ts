@@ -10,23 +10,29 @@ export interface IInputConfig extends IFieldConfig<string> {
 export default class Input implements IField<string> { 
 
 
-
+    value: string;
     config: IInputConfig;
 
-    callback =  (value: string) => {};
+    listener =  (key: string, value: string) => {};
     constructor(config: IInputConfig) {
+        this.value = config.value;
         this.config = config;
     }
     validate(): Promise<boolean> {
-        throw new Error("Method not implemented.");
+        return Promise.resolve(true);
     }
     getValue(): Promise<string> {
-        throw new Error("Method not implemented.");
+        return Promise.resolve(this.config.value);
     }
     setValue(value: string): Promise<void> {
-        throw new Error("Method not implemented.");
+        this.value = value;
+        this.listener(this.config.key, value);
+        return Promise.resolve();
     }
-    onChange(callback: (value: string) => void): void {
-        this.callback = callback;
+    getConfig(): IFieldConfig<string> {
+        return this.config;
+    }
+    addListener(listener: (key: string, value: string) => void): void {
+        this.listener = listener;
     }
 }

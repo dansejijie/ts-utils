@@ -8,7 +8,7 @@ export interface IFieldConfig<T = any> {
     /** 表单项的唯一标识 */
     key: string;
     /** 初始值 */
-    value?: T;
+    value: T;
     /** 标签文本 */
     name?: string;
     /** 是否必填 */
@@ -19,5 +19,5 @@ export interface IFieldConfig<T = any> {
     rules?: Array<(value: T) => Promise<string | undefined>>;
 
     /** 其他属性 用于其他字段的扩展 */
-    attrs?: Record<string, any>;
+    attrs: Record<string, any>;
   } 
