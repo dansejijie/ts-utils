@@ -5,7 +5,6 @@
   <script lang="ts">
   import { defineComponent, PropType } from 'vue';
   import { Input as AntdInput } from 'ant-design-vue';
-  import Input from '@example/form/controllers/Input';
   import IField from '@/form/IField';
 
   export default defineComponent({
