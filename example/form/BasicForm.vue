@@ -1,7 +1,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 import Input from '@example/form/views/Input.vue';
-import BasicForm from '@/form/BasicForm';
+import BasicForm from '@example/form/BasicForm';
 export default defineComponent({
   components: {
     Input

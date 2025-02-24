@@ -1,6 +1,6 @@
-import IForm from './IForm';
-import IField from './IField';
-import { IFieldConfig } from './types';
+import IForm from '../../src/form/IForm';
+import IField from '../../src/form/IField';
+import { IFieldConfig } from '../../src/form/types';
 import { importModule } from '@/utils/references';
 import { reactive } from 'vue';
 
@@ -38,9 +38,9 @@ export default class BasicForm implements IForm {
 
   public async validate(): Promise<boolean> {
     const results = await Promise.all(
-      Array.from(this.fields.entries()).map(async ([name, field]) => {
+      this.fields.map(async (field) => {
         const isValid = await field.validate();
-        return { name, isValid };
+        return { name: field.getConfig().key, isValid };
       })
     );
     return results.every(result => result.isValid);
@@ -49,8 +49,8 @@ export default class BasicForm implements IForm {
   public async getValues(): Promise<Record<string, any>> {
     const values: Record<string, any> = {};
     await Promise.all(
-      Array.from(this.fields.entries()).map(async ([name, field]) => {
-        values[name] = await field.getValue();
+     this.fields.map(async (field) => {
+        values[field.getConfig().key] = await field.getValue();
       })
     );
     return values;

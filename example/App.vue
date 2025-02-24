@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import BasicFormClass from '../src/form/BasicForm'
+import BasicFormClass from './form/BasicForm'
 import { IFieldConfig } from '../src/form/types'
 import { onMounted } from 'vue'
 import BasicForm from '@example/form/BasicForm.vue'
