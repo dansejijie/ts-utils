@@ -10,4 +10,4 @@ export async function importModule(relativePath: string) {
     console.error(`Failed to import module: ${relativePath}`, error)
     throw error
   }
-} 
+}
