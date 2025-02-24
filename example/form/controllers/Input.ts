@@ -9,7 +9,11 @@ export interface IInputConfig extends IFieldConfig<string> {
 
 export default class Input implements IField<string> { 
 
+
+
     config: IInputConfig;
+
+    callback =  (value: string) => {};
     constructor(config: IInputConfig) {
         this.config = config;
     }
@@ -23,6 +27,6 @@ export default class Input implements IField<string> {
         throw new Error("Method not implemented.");
     }
     onChange(callback: (value: string) => void): void {
-        throw new Error("Method not implemented.");
+        this.callback = callback;
     }
 }

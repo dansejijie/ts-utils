@@ -1,6 +1,7 @@
 import IForm from './IForm';
 import IField from './IField';
 import { IFieldConfig } from './types';
+import { importModule } from '@/utils/references';
 
 export default class BasicForm implements IForm {
   private fields: Map<string, IField> = new Map();
@@ -10,6 +11,10 @@ export default class BasicForm implements IForm {
     this.handleFieldChange = this.handleFieldChange.bind(this);
   }
 
+  /**
+   * 技术限制，需要主动指定导入的文件夹相对路径
+   * @param directory 
+   */
   public setImportDirectory(directory: string): void {
     this.importDirectory = directory;
   }
@@ -19,9 +24,9 @@ export default class BasicForm implements IForm {
       const { controller } = field as IFieldConfig;
       const relativePath = `${this.importDirectory}/${controller}.ts`
       console.log('relativePath', relativePath);
-      const Clz  = await import(relativePath) ;
+      const Clz  = await importModule(relativePath) ;
       console.log('Clz', Clz);
-      const instance = new Clz.default(field);
+      const instance = new Clz(field);
       this.fields.set(name, instance);
       instance.onChange(this.handleFieldChange);
     } else {

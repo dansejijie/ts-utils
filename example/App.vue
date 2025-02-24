@@ -43,7 +43,7 @@ const formInstance = new BasicFormClass()
 const form = ref(formInstance)
 
 const  initForm = async() => {
-  formInstance.setImportDirectory('@example/form/controllers')
+  formInstance.setImportDirectory('../../example/form/controllers/')
   await formInstance.addField('username', formConfig['username'])
 }
 
