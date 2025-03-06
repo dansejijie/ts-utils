@@ -1,13 +1,14 @@
 <template>
   <div class="form-demo">
     <h2>表单示例</h2>
+    <LanguageSwitcher />
     <BasicForm
       :controller="form"
     >
       <template #footer>
         <div class="form-buttons">
-          <button @click="handleSubmit">提交</button>
-          <button @click="handleReset">重置</button>
+          <button @click="handleSubmit">{{ $t('common.submit') }}</button>
+          <button @click="handleReset">{{ $t('common.reset') }}</button>
         </div>
       </template>
     </BasicForm>
@@ -20,6 +21,7 @@ import BasicFormClass from './form/BasicForm'
 import { IFieldConfig } from '../src/form/types'
 import { onMounted } from 'vue'
 import BasicForm from '@example/form/BasicForm.vue'
+import LanguageSwitcher from './components/LanguageSwitcher.vue'
 // 定义表单配置
 const formConfig: Record<string, IFieldConfig<any>> = {
   username: {
@@ -72,6 +74,8 @@ const handleSubmit = async () => {
 const handleReset = () => {
   form.value.reset()
 }
+
+const username = ref('Claude')
 </script>
 
 <style scoped>
