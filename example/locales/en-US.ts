@@ -1,4 +1,10 @@
 export default {
+  nav: {
+    home: 'Home',
+    form: 'Form Demo',
+    filter: 'Filter Demo',
+    i18n: 'I18n Demo'
+  },
   common: {
     ok: 'OK',
     cancel: 'Cancel',

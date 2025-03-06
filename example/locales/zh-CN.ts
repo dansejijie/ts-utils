@@ -1,4 +1,10 @@
 export default {
+  nav: {
+    home: '首页',
+    form: '表单示例',
+    filter: '筛选示例',
+    i18n: '国际化示例'
+  },
   common: {
     ok: '确定',
     cancel: '取消',

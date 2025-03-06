@@ -12,9 +12,7 @@
     "build": "vue-tsc && vite build --config vite.lib.config.ts",
     "build:web": "vite build",
     "test": "vitest run",
-    "lint": "eslint src --ext .ts,.tsx,.vue",
-    "preview": "vite preview",
-    "preinstall": "npx only-allow npm"
+    "lint": "eslint src --ext .ts,.tsx,.vue"
   },
   "files": [
     "dist"
@@ -27,8 +25,7 @@
   "author": "",
   "license": "MIT",
   "engines": {
-    "node": ">=18",
-    "npm": ">=9"
+    "node": ">=18"
   },
   "peerDependencies": {
     "vue": "^3.3.0"
@@ -53,6 +50,7 @@
     "less": "^4.2.0"
   },
   "dependencies": {
-    "vue-i18n": "^9.2.2"
+    "vue-i18n": "^9.2.2",
+    "vue-router": "^4.0.12"
   }
 }

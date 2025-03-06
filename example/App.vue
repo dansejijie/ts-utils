@@ -1,104 +1,90 @@
 <template>
-  <div class="form-demo">
-    <h2>表单示例</h2>
-    <LanguageSwitcher />
-    <BasicForm
-      :controller="form"
-    >
-      <template #footer>
-        <div class="form-buttons">
-          <button @click="handleSubmit">{{ $t('common.submit') }}</button>
-          <button @click="handleReset">{{ $t('common.reset') }}</button>
-        </div>
-      </template>
-    </BasicForm>
+  <div class="app-container">
+    <header class="app-header">
+      <h1>Vue3 工具库演示</h1>
+      <LanguageSwitcher />
+    </header>
+    
+    <nav class="app-nav">
+      <router-link to="/">{{ $t('nav.home') }}</router-link>
+      <!-- 暂时注释未实现的路由链接 -->
+      <!-- <router-link to="/form">{{ $t('nav.form') }}</router-link> -->
+      <!-- <router-link to="/filter">{{ $t('nav.filter') }}</router-link> -->
+      <!-- <router-link to="/i18n">{{ $t('nav.i18n') }}</router-link> -->
+    </nav>
+    
+    <main class="app-content">
+      <router-view></router-view>
+    </main>
+    
+    <footer class="app-footer">
+      <p>© 2023 Vue3 工具库演示</p>
+    </footer>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import BasicFormClass from './form/BasicForm'
-import { IFieldConfig } from '../src/form/types'
 import { onMounted } from 'vue'
-import BasicForm from '@example/form/BasicForm.vue'
 import LanguageSwitcher from './components/LanguageSwitcher.vue'
-// 定义表单配置
-const formConfig: Record<string, IFieldConfig<any>> = {
-  username: {
-    view: 'Input',
-    controller: 'Input',
-    key: 'username',
-    name: '用户名',
-    value: '',
-    attrs: {}
-  },
-  password: {
-    view: 'Input',
-    controller: 'Input',
-    key: 'password',
-    name: '密码',
-    value: '',
-    attrs: {}
-  }
-} as const
+import { useRouter } from 'vue-router'
 
-// 创建表单实例
-const formInstance = new BasicFormClass()
-const form = ref(formInstance)
+const router = useRouter()
 
-const  initForm = async() => {
-  formInstance.setImportDirectory('../../example/form/controllers/')
-  await formInstance.addField(formConfig['username'])
-}
-
-onMounted(async () => {
-  await initForm()
-});
-
-
-
-// 提交方法
-const handleSubmit = async () => {
-  try {
-    const valid = await form.value.validate()
-    if (valid) {
-      const formData = form.value.getValues()
-      console.log('表单数据:', formData)
-    }
-  } catch (error) {
-    console.error('表单验证失败:', error)
-  }
-}
-
-// 重置方法
-const handleReset = () => {
-  form.value.reset()
-}
-
-const username = ref('Claude')
+onMounted(() => {
+  console.log('App mounted')
+})
 </script>
 
 <style scoped>
-.form-demo {
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.form-buttons {
-  margin-top: 20px;
+.app-container {
   display: flex;
-  gap: 10px;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
 }
 
-button {
-  padding: 8px 16px;
-  border-radius: 4px;
-  border: 1px solid #ddd;
-  cursor: pointer;
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
 }
 
-button:hover {
-  background-color: #f5f5f5;
+.app-nav {
+  display: flex;
+  padding: 0.5rem 2rem;
+  background-color: #fff;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.app-nav a {
+  margin-right: 1.5rem;
+  color: #495057;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.app-nav a:hover {
+  color: #228be6;
+}
+
+.app-nav a.router-link-active {
+  color: #228be6;
+  border-bottom: 2px solid #228be6;
+}
+
+.app-content {
+  flex: 1;
+  padding: 2rem;
+}
+
+.app-footer {
+  padding: 1rem 2rem;
+  background-color: #f8f9fa;
+  border-top: 1px solid #e9ecef;
+  text-align: center;
+  color: #6c757d;
 }
 </style> 
